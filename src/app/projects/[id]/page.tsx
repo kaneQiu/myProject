@@ -23,10 +23,11 @@ export default async function ProjectPage({
         </Link>
       </header>
 
-      <main className="mx-auto max-w-3xl px-6 py-12">
+      <main className="relative mx-auto max-w-3xl px-6 py-12">
+        <div className="pointer-events-none absolute -right-24 -top-10 -z-10 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl dark:bg-indigo-500/20" />
         <Link
           href="/"
-          className="block text-right text-sm text-zinc-700 transition hover:text-zinc-900 dark:text-zinc-600 dark:hover:text-white"
+          className="block text-right text-sm font-medium text-zinc-600 transition hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400"
         >
           ← 返回首页
         </Link>
@@ -54,7 +55,7 @@ export default async function ProjectPage({
           <img
             src={project.cover_image_url}
             alt={project.title}
-            className="mt-8 w-full rounded-xl object-cover"
+            className="mt-8 w-full rounded-2xl object-cover shadow-lg ring-1 ring-zinc-200 dark:ring-zinc-800"
           />
         )}
 
@@ -75,7 +76,7 @@ export default async function ProjectPage({
                 href={project.project_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+                className="rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-indigo-500/25 transition hover:from-indigo-600 hover:to-violet-600 hover:shadow-lg"
               >
                 访问项目
               </a>

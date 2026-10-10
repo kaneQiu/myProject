@@ -23,18 +23,29 @@ export default async function Home() {
 
       <main className="mx-auto max-w-5xl px-6 pb-24">
         {/* 个人介绍区 */}
-        <section className="py-20">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            您好，我是 <span className="text-zinc-400">裘浩峰</span>
+        <section className="relative overflow-hidden py-20 sm:py-24">
+          <div className="pointer-events-none absolute -right-20 -top-16 -z-10 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl dark:bg-indigo-500/20" />
+          <div className="pointer-events-none absolute -left-24 top-32 -z-10 h-64 w-64 rounded-full bg-violet-500/10 blur-3xl dark:bg-violet-500/20" />
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-500 dark:text-indigo-400">
+            Portfolio
+          </p>
+          <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-6xl">
+            您好，我是{" "}
+            <span className="bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-500 bg-clip-text text-transparent">
+              裘浩峰
+            </span>
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-            这里将向您介绍我曾今的项目经历以及更新正在做的也许有趣的东西。
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+            这里将向您介绍我过往的项目经历，以及正在做的、也许有趣的东西。
           </p>
         </section>
 
         {/* 项目列表 */}
         <section>
-          <h2 className="mb-8 text-2xl font-semibold">项目经验</h2>
+          <h2 className="mb-8 flex items-center gap-4 text-2xl font-semibold">
+            项目经验
+            <span className="h-px flex-1 bg-gradient-to-r from-zinc-200 to-transparent dark:from-zinc-800" />
+          </h2>
           {projects.length === 0 ? (
             <p className="rounded-lg border border-dashed border-zinc-300 p-8 text-center text-zinc-500 dark:border-zinc-700">
               还没有项目，登录后台添加第一个吧。
@@ -45,22 +56,24 @@ export default async function Home() {
                 <Link
                   key={project.id}
                   href={`/projects/${project.id}`}
-                  className="group flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white transition hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition duration-300 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-500/40"
                 >
-                  {project.cover_image_url ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={project.cover_image_url}
-                      alt={project.title}
-                      className="h-48 w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-48 w-full items-center justify-center bg-zinc-100 text-zinc-400 dark:bg-zinc-800">
-                      暂无封面
-                    </div>
-                  )}
+                  <div className="h-48 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                    {project.cover_image_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={project.cover_image_url}
+                        alt={project.title}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-zinc-400">
+                        暂无封面
+                      </div>
+                    )}
+                  </div>
                   <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-lg font-semibold group-hover:underline">
+                    <h3 className="text-lg font-semibold transition group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
                       {project.title}
                     </h3>
                     <p className="mt-2 line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">
