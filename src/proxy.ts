@@ -8,6 +8,11 @@ export function proxy(request: NextRequest) {
 
   // /admin/login 公开，其余 /admin/* 需要登录
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+    // 本地 mock 调试：跳过登录拦截，方便在不连接 Supabase 时预览后台
+    if (process.env.USE_MOCK_DATA === "true") {
+      return NextResponse.next();
+    }
+
     // Supabase 的 session cookie 命名格式：sb-<project_ref>-auth-token
     const hasSession = request.cookies
       .getAll()

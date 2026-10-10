@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject } from "@/lib/projects";
+import { ImageGallery } from "@/components/image-gallery";
 
 export default async function ProjectPage({
   params,
@@ -25,7 +26,7 @@ export default async function ProjectPage({
       <main className="mx-auto max-w-3xl px-6 py-12">
         <Link
           href="/"
-          className="text-sm text-zinc-500 transition hover:text-zinc-900 dark:hover:text-zinc-100"
+          className="block text-right text-sm text-zinc-700 transition hover:text-zinc-900 dark:text-zinc-600 dark:hover:text-white"
         >
           ← 返回首页
         </Link>
@@ -55,6 +56,10 @@ export default async function ProjectPage({
             alt={project.title}
             className="mt-8 w-full rounded-xl object-cover"
           />
+        )}
+
+        {project.images.length > 0 && (
+          <ImageGallery images={project.images} title={project.title} />
         )}
 
         {project.content && (

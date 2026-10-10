@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import type { Project } from "@/lib/types";
 import { createProject, updateProject } from "@/app/admin/actions";
 
@@ -10,6 +10,15 @@ const inputClass =
 export function ProjectForm({ project }: { project?: Project }) {
   const action = project ? updateProject.bind(null, project.id) : createProject;
   const [state, formAction, pending] = useActionState(action, undefined);
+  const [images, setImages] = useState<string[]>(
+    project?.images?.length ? project.images : [""],
+  );
+
+  const addImage = () => setImages((prev) => [...prev, ""]);
+  const removeImage = (index: number) =>
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  const updateImage = (index: number, value: string) =>
+    setImages((prev) => prev.map((img, i) => (i === index ? value : img)));
 
   return (
     <form action={formAction} className="space-y-6">
@@ -80,6 +89,45 @@ export function ProjectForm({ project }: { project?: Project }) {
           className={inputClass}
           placeholder="https://..."
         />
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between">
+          <label className="block text-sm font-medium">
+            项目截图（可多张，横向滑动预览）
+          </label>
+          <button
+            type="button"
+            onClick={addImage}
+            className="text-sm text-zinc-500 transition hover:text-zinc-900 dark:hover:text-zinc-100"
+          >
+            + 添加图片
+          </button>
+        </div>
+        <div className="mt-2 space-y-2">
+          {images.map((url, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <input
+                name="images"
+                type="url"
+                value={url}
+                onChange={(e) => updateImage(index, e.target.value)}
+                className={inputClass}
+                placeholder={`截图 ${index + 1} 的图片链接 https://...`}
+              />
+              {images.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="shrink-0 px-2 text-lg text-zinc-400 transition hover:text-red-500"
+                  aria-label="删除图片"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">

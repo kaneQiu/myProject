@@ -8,6 +8,7 @@ export type Project = {
   cover_image_url: string | null;
   project_url: string | null;
   github_url: string | null;
+  images: string[];
   featured: boolean;
   created_at: string;
   updated_at: string;
@@ -22,5 +23,6 @@ export type ProjectInput = {
   cover_image_url: string | null;
   project_url: string | null;
   github_url: string | null;
+  images: string[];
   featured: boolean;
 };

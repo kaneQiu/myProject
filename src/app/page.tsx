@@ -25,11 +25,10 @@ export default async function Home() {
         {/* 个人介绍区 */}
         <section className="py-20">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            你好，我是 <span className="text-zinc-400">你的名字</span>
+            您好，我是 <span className="text-zinc-400">裘浩峰</span>
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-            这里是一段简短的自我介绍，介绍你的背景、技能方向，以及你正在做的事情。编辑
-            src/app/page.tsx 即可修改。
+            这里将向您介绍我曾今的项目经历以及更新正在做的也许有趣的东西。
           </p>
         </section>
 

@@ -57,6 +57,10 @@ function parseProjectInput(formData: FormData): ProjectInput {
     project_url:
       ((formData.get("project_url") as string) ?? "").trim() || null,
     github_url: ((formData.get("github_url") as string) ?? "").trim() || null,
+    images: formData
+      .getAll("images")
+      .map((v) => (v as string).trim())
+      .filter(Boolean),
     featured: formData.get("featured") === "on",
   };
 }
