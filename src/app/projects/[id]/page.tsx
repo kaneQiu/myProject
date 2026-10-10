@@ -23,7 +23,7 @@ export default async function ProjectPage({
         </Link>
       </header>
 
-      <main className="relative isolate mx-auto max-w-3xl px-6 py-12">
+      <main className="relative mx-auto max-w-3xl px-6 py-12">
         <div className="pointer-events-none absolute -right-24 -top-10 -z-10 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl dark:bg-indigo-500/20" />
         <Link
           href="/"

@@ -23,7 +23,7 @@ export default async function Home() {
 
       <main className="mx-auto max-w-5xl px-6 pb-24">
         {/* 个人介绍区 */}
-        <section className="relative isolate overflow-hidden py-20 sm:py-24">
+        <section className="relative overflow-hidden py-20 sm:py-24">
           <div className="pointer-events-none absolute -right-20 -top-16 -z-10 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl dark:bg-indigo-500/20" />
           <div className="pointer-events-none absolute -left-24 top-32 -z-10 h-64 w-64 rounded-full bg-violet-500/10 blur-3xl dark:bg-violet-500/20" />
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-500 dark:text-indigo-400">
