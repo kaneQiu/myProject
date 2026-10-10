@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import type { Project } from "@/lib/types";
 import { createProject, updateProject } from "@/app/admin/actions";
+import { ImageUpload } from "@/components/image-upload";
 
 const inputClass =
   "mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100";
@@ -13,6 +14,7 @@ export function ProjectForm({ project }: { project?: Project }) {
   const [images, setImages] = useState<string[]>(
     project?.images?.length ? project.images : [""],
   );
+  const [cover, setCover] = useState(project?.cover_image_url ?? "");
 
   const addImage = () => setImages((prev) => [...prev, ""]);
   const removeImage = (index: number) =>
@@ -85,10 +87,14 @@ export function ProjectForm({ project }: { project?: Project }) {
           id="cover_image_url"
           name="cover_image_url"
           type="url"
-          defaultValue={project?.cover_image_url ?? ""}
+          value={cover}
+          onChange={(e) => setCover(e.target.value)}
           className={inputClass}
-          placeholder="https://..."
+          placeholder="https://...（或点击下方上传）"
         />
+        <div className="mt-2">
+          <ImageUpload onUploaded={setCover} />
+        </div>
       </div>
 
       <div>
@@ -115,6 +121,7 @@ export function ProjectForm({ project }: { project?: Project }) {
                 className={inputClass}
                 placeholder={`截图 ${index + 1} 的图片链接 https://...`}
               />
+              <ImageUpload onUploaded={(url) => updateImage(index, url)} />
               {images.length > 1 && (
                 <button
                   type="button"

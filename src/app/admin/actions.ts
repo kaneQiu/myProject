@@ -127,3 +127,38 @@ export async function deleteProject(id: string) {
   revalidatePath("/");
   redirect("/admin");
 }
+
+// 上传图片到 Supabase Storage，返回公开 URL
+export type UploadResult = { url?: string; error?: string };
+
+export async function uploadImage(formData: FormData): Promise<UploadResult> {
+  const user = await getUser();
+  if (!user) {
+    return { error: "未登录" };
+  }
+
+  const file = formData.get("file") as File | null;
+  if (!file || file.size === 0) {
+    return { error: "未选择文件" };
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    return { error: "图片不能超过 5MB" };
+  }
+
+  const ext = (file.name.split(".").pop() || "png").toLowerCase();
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const filePath = `projects/${fileName}`;
+
+  const supabase = createAdminClient();
+  const { error } = await supabase.storage
+    .from("images")
+    .upload(filePath, file, { contentType: file.type, upsert: false });
+
+  if (error) {
+    return { error: "上传失败：" + error.message };
+  }
+
+  const { data } = supabase.storage.from("images").getPublicUrl(filePath);
+  return { url: data.publicUrl };
+}
